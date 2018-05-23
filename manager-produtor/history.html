@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MaxAmp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" >
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link rel="stylesheet" href="../css/manager.css">
+  <link rel="stylesheet" href="../css/jquery-ui.css">
+  
+
+
+</head>
+<body>
+        
+       
+    <nav class="navbar navbar-inverse navbar-dark p-0 shadow bg-dark fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-brand ml-auto" href="#">
+              <img class="logo float-left" src="..\images\logo.svg" width="30" height="30" alt="">
+              <h5 class="title text-light">MaxAmp</h5>
+            </div>
+
+            <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="../index.html"><i class="fas fa-sign-in-alt"></i> Sair</a>
+                  </li>
+            </ul>
+        </div>
+      </nav>
+
+
+      <div class="container-fluid bg-dark ">
+        <div class="row page bg-white" >
+          <div class="col-sm-2 bg-light sidebar">
+              <ul class="nav flex-column ">
+                  <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-home pr-2"></i>Inicio</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="panels.html"><i class="fas fa-sun pr-2"></i>Painéis Fotovoltáicos</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="battery.html"><i class="fas fa-battery-three-quarters pr-2"></i>Baterias</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#" onclick="alert('Em desenvolvimento')"><i class="fas fa-edit pr-2"></i>Regras</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="history.html"><i class="fas fa-history pr-2"></i>Histórico</span></a></li>
+                  <li class="nav-item"><a class="nav-link active" href="options.html"><i class="fas fa-cog pr-2"></i>Opções</span></a></li>
+              </ul>
+          </div>
+
+        <div class="col bg-white title-header">
+            <h4>Histórico</h4><hr>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                        <input id="datepicker" class="form-control text-center" placeholder="Selecionar Data"/>
+                </div>
+            </div>
+            <br>
+            <center><canvas id="bar-chart" style="max-width: 700px;"></canvas></center>
+            <br><br>
+            <div class="row">
+
+            
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+            <table class="table table-bordered text-center ">
+                <thead class="thead-light">
+                    <th></th>
+                    <th>Painéis Fotovoltáicos</th>
+                    <th>Bateria</th>
+                    <th>Rede</th>
+                </tr>
+                <tr class="table-light">
+                    <th class="thead-light">kWh consumidos</th>
+                    <td>5,6</td>
+                    <td>2,5</td>
+                    <td>0,9</td>
+                </tr>
+                <tr class="table-light">
+                    <th class="thead-light">Custo</th>
+                    <td class="text-success">-0,840€</td>
+                    <td class="text-success">-0,375€</td>
+                    <td class="text-danger">0,135€</td>
+                </tr>
+                <tr class="table-light">
+                    <th class="thead-light">Poupança</th>
+                    <td colspan="2" class="text-success">1,215€</td>
+                </tr>
+            </table>
+        </div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+
+
+<!-- Javascript -->
+
+<script>
+
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+        
+        var ctx = document.getElementById("bar-chart");
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Rede","Bateria","Painéis Fotovoltáicos"],
+                datasets: [{
+                    label: 'Consumo (%)',
+                    data: [10,28,62],
+                    backgroundColor:['#ffba49','#20a39e','#e87461'],
+                    borderColor:'rgba(70, 80, 83, 1)',
+                    borderWidth: 1
+                }
+                
+                
+                ]
+            },
+            options: {
+                responsive: true,
+                title: {
+                            display: true,
+                            text: 'Consumos (%)' }
+            }
+        });
+        
+        });
+        </script>
+    
+    <script src="../script/Chart.js"></script>
+    <script src="../script/raphael-2.1.4.min.js"></script>
+    <script src="../script/justgage.js"></script>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> int
+    <script src="../script/bootstrap.min.js" ></script>
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="../script/jquery-ui.js"></script>
+    <script src="i18n/datepicker-pt.js"></script>
+    <script>
+    $('#datepicker').datepicker({
+    dateFormat: 'dd/mm/yy',
+    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    nextText: 'Próximo',
+    prevText: 'Anterior',
+    showAnim: 'fadeIn'
+    });
+    </script>
+
+</body>
+</html>

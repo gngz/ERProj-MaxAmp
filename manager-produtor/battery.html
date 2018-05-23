@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MaxAmp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+  <link href="../css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link rel="stylesheet" href="../css/manager.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse navbar-dark p-0 shadow bg-dark fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-brand ml-auto" href="#">
+              <img class="logo float-left" src="..\images\logo.svg" width="30" height="30" alt="">
+              <h5 class="title text-light">MaxAmp</h5>
+            </div>
+
+            <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="../index.html"><i class="fas fa-sign-in-alt"></i> Sair</a>
+                  </li>
+            </ul>
+        </div>
+      </nav>
+
+
+      <div class="container-fluid bg-dark ">
+        <div class="row page bg-white" >
+          <div class="col-sm-2 bg-light sidebar">
+              <ul class="nav flex-column ">
+                  <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-home pr-2"></i>Inicio</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="panels.html"><i class="fas fa-sun pr-2"></i>Painéis Fotovoltáicos</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="battery.html"><i class="fas fa-battery-three-quarters pr-2"></i>Baterias</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#" onclick="alert('Em desenvolvimento')"><i class="fas fa-edit pr-2"></i>Regras</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="history.html"><i class="fas fa-history pr-2"></i>Histórico</span></a></li>
+                  <li class="nav-item"><a class="nav-link active" href="options.html"><i class="fas fa-cog pr-2"></i>Opções</span></a></li>
+              </ul>
+          </div>
+        <div class="col bg-white title-header"><h4>Baterias</h4><hr>
+            <center><canvas id="bar-chart"style="max-width: 700px;"></canvas></center>
+            <hr><h5>Dados em tempo real</h5><hr>
+
+            <div class="row">
+                <div class="col-sm-4">
+                        <div class="row">
+                                <div class="col-sm-6 border-right">
+                                    <p>Estado:</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p id="battery-state">Ativado (Em carregamento)</p>
+                                </div>
+                
+                            </div>
+                
+                            <div class="row">
+                                <div class="col-sm-6 border-right">
+                                    <p>Carga/Descarga Instantânea:</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p id="battery-charge">1800W / 2000W</p>
+                                </div>
+                            </div>
+                </div>
+                <div class="col-sm-3">
+                        <div class="row">
+                                <div class="col-sm-6 border-right">
+                                    <p>Nível da Bateria:</p>
+                                </div>
+
+                                <div class="col-sm-6">
+                                        <div class="progress" style=" margin-bottom: 0px !important; margin-top:6px;">
+                                               
+                                                <div id="battery-progress" class="progress-bar"></div>
+                                        </div> 
+                                </div>
+                                
+                                    
+                                
+                
+                        </div>
+                </div>
+                <div class="col-sm-2">
+                       
+                </div>
+            </div>
+        
+
+
+
+            <hr><h5>Ações</h5><hr>
+
+            <div class="form-group row">
+                <label for="toogle-input" class="col-2 col-form-label border-right">Estado da Bateria:</label>
+                <div class="col-10">
+                    <input id="toggle-input" checked data-onstyle="success" data-offstyle="danger" data-on="Ativar" data-off="Desactivar"  data-toggle="toggle" type="checkbox">
+                </div>
+              </div>
+
+            
+        </div>
+        </div>
+      </div>
+
+<script>
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+function mudarProgressbar(valor)
+{
+    $('#battery-progress').css('width', valor+'%').attr('aria-valuenow', valor);    
+    $('#battery-progress').text(valor+"%");
+}
+
+var nivel_bateria = Math.floor(Math.random() * 101); 
+
+mudarProgressbar(nivel_bateria);
+
+var estado = 0;
+var consumo_prod = "(Em carregamento)";
+
+$('#battery-state').text('Desativado');
+$('#battery-charge').text('0W /2000W');
+
+$('#toggle-input').change(function() {
+
+    if(estado == 1)
+    {
+        $('#battery-state').text('Desativado');
+        $('#battery-charge').text('0W /2000W');
+        estado = 0;
+    }
+    else
+    {
+        $('#battery-state').text('Ativado '+consumo_prod);
+        $('#battery-charge').text('1800W /2000W');
+        estado = 1;
+    }
+     
+});
+
+
+var ctx = document.getElementById("bar-chart");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["0h","2h","4h","6h","8h","10h","12h","14h","16h","18h","20h","22h","24h"],
+        datasets: [{
+            label: 'Descarga (kW)',
+            data: [1.2,0.2,0.2,0,0,0,0,0,0,0,0,0.9,1],
+            backgroundColor:'rgba(70, 0, 0, 0.1)',
+            borderColor:'rgba(70, 0, 0, 1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Carga (kW)',
+            data: [0,0,0,0.1,0.5,0.9,1.5,1.9,1.6,1,0.5,0,0],
+            backgroundColor:'rgba(0, 80, 0, 0.1)',
+            borderColor:'rgba(0, 80, 0, 1)',
+            borderWidth: 1
+        }
+        
+        ]
+    },
+    options: {
+        responsive:true,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                },scaleLabel: {
+							display: true,
+							labelString: 'kW'
+						}
+            }],
+
+            xAxes: [{
+                scaleLabel: {
+							display: true,
+							labelString: 'Horas'
+						}
+            }]
+        }
+    }
+});
+
+});
+</script>
+
+<!-- Javascript -->
+
+    <script src="../script/Chart.js"></script>
+    <script src="../script/jquery-3.3.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="../script/bootstrap.min.js"></script>
+    <script src="../script/bootstrap-toggle.min.js"></script>
+</body>
+</html>

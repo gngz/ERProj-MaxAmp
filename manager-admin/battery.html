@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MaxAmp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link rel="stylesheet" href="../css/manager.css">
+  
+
+</head>
+<body>
+        
+       
+    <nav class="navbar navbar-inverse navbar-dark p-0 shadow bg-dark fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-brand ml-auto" href="#">
+              <img class="logo float-left" src="..\images\logo.svg" width="30" height="30" alt="">
+              <h5 class="title text-light">MaxAmp</h5>
+            </div>
+
+            <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="../index.html"><i class="fas fa-sign-in-alt"></i> Sair</a>
+                  </li>
+            </ul>
+        </div>
+      </nav>
+
+
+      <div class="container-fluid bg-dark ">
+        <div class="row page bg-white" >
+          <div class="col-sm-2 bg-light sidebar">
+              <ul class="nav flex-column ">
+                  <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-home pr-2"></i>Inicio</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="battery.html"><i class="fas fa-battery-three-quarters pr-2"></i>Bateria Virtual</a></li>
+
+              </ul>
+          </div>
+          
+         
+        <div class="col bg-white title-header">
+                <div id="alerta-erro" class="row alert alert-warning col-sm-8 mx-auto" role="alert" >
+                        Deverá introduzir inferior ou igual à capacidade máxima.
+                </div>
+                <div id="alerta-erro-menor-zero" class="row alert alert-warning col-sm-8 mx-auto" role="alert" >
+                        Deverá introduzir um valor positivo.
+                </div>
+            <h4>Bateria Virtual</h4><hr>
+            
+            <div class="row">
+                    
+                    <div class="col-sm-4">
+                           
+                    
+                                <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <p>Capacidade disponível:</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p id="battery-capacity">8000 kWh</p>
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="col-sm-3">
+                            <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <p>Nível da Bateria:</p>
+                                    </div>
+                                    
+    
+                                    <div class="col-sm-6">
+                                            <div class="progress" style=" margin-bottom: 0px !important; margin-top:6px;">
+                                                    <div id="battery-progress" class="progress-bar"></div>
+                                            </div> 
+                                    </div>
+                                    
+                            
+    
+                                    
+                    
+                            </div>
+                    </div>
+                    <div class="col-sm-2">
+                           
+                    </div>
+                </div>
+                <hr>
+
+                <div>
+                    <form id="form-descarga">
+                        <div class="form-group row">
+                            <label for="capacity-input" class="col-sm-2 col-form-label">Descarregar</label>
+                            <div class="col-sm-2">
+                              <input type="number" class="form-control" id="capacity-input" placeholder="Capacidade a descarregar" required>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary mb-2">Descarregar</button>
+                            </div>
+                          </div>
+                    </form>
+                </div>
+    
+            
+            
+        </div>
+        </div>
+      </div>
+
+
+
+<!-- Javascript -->
+
+
+
+<script>
+ document.addEventListener("DOMContentLoaded", function(event) {
+     
+     $('#alerta-erro').hide();
+	 $('#alerta-erro-menor-zero').hide();
+
+     var consumo_casa  = getRandomInt(0,5000);
+     var prod_solar = getRandomInt(0,2000);
+     var energia_bateria = 0;
+
+    if(prod_solar>consumo_casa)
+    {
+        energia_bateria = getRandomInt(0,-5000)/5000 * (consumo_casa - prod_solar) ;
+    }
+    else
+    {
+        energia_bateria = getRandomInt(0,5000)/5000  *  (consumo_casa - prod_solar);
+    }
+
+     var energia_rede = prod_solar + (energia_bateria*-1)  - consumo_casa;
+
+
+
+    var gr = new JustGage({
+    id: "grede",
+    value: energia_rede,
+    min: -5000,
+    max: 5000,
+    title: "Rede",
+    label: "Consumo (W)",
+    relativeGaugeSize: true
+    });
+
+    var gb = new JustGage({
+    id: "gbateria",
+    value: energia_bateria,
+    min: -5000,
+    max: 5000,
+    title: "Bateria Virtual",
+    label: "Cons./Prod. (W)",
+    relativeGaugeSize: true
+    });
+
+
+
+      });
+</script>
+
+    <script src="../script/raphael-2.1.4.min.js"></script>
+    <script src="../script/justgage.js"></script>
+    <script src="../script/jquery-3.3.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="../script/bootstrap.min.js"></script>
+    <script>
+    function mudarProgressbar(valor)
+    {
+        $('#battery-progress').css('width', valor+'%').attr('aria-valuenow', valor);    
+        $('#battery-progress').text(valor+"%");
+    }
+    
+    var nivel_bateria = Math.floor(Math.random() * 101); 
+    var capacidade_disponivel =(nivel_bateria/100)*8000;
+    
+    mudarProgressbar(nivel_bateria);
+    
+    $('#battery-capacity').text(capacidade_disponivel+" / 8000 kWh");
+
+
+    $('#form-descarga').submit(function(e) { 
+        e.preventDefault();
+        $('#alerta-erro').hide();
+		$('#alerta-erro-menor-zero').hide();
+        var valor = $('#capacity-input').val();
+		if(valor<0)
+        {
+            $('#alerta-erro-menor-zero').show();
+        }
+        if(valor>capacidade_disponivel)
+        {
+            $('#alerta-erro').show();
+        }
+        else
+        {
+            
+            $('#battery-capacity').text((capacidade_disponivel- valor) +" / 8000 kWh");
+
+             $('#battery-progress').css('width', ((capacidade_disponivel- valor)/8000)*100+'%').attr('aria-valuenow', valor);    
+             $('#battery-progress').text((((capacidade_disponivel-valor)/8000) *100).toFixed(0) +"%");
+             capacidade_disponivel = capacidade_disponivel- valor;
+        }
+    });
+
+
+    var estado = 0;
+    var consumo_prod = "(Em carregamento)";
+    
+    $('#battery-state').text('Desativado');
+    $('#battery-charge').text('0W /2000W');
+    
+    $('#toggle-input').change(function() {
+    
+        if(estado == 1)
+        {
+            $('#battery-state').text('Desativado');
+            $('#battery-charge').text('0W /2000W');
+            estado = 0;
+        }
+        else
+        {
+            $('#battery-state').text('Ativado '+consumo_prod);
+            $('#battery-charge').text('1800W /2000W');
+            estado = 1;
+        }
+         
+    });
+    </script>
+
+</body>
+</html>

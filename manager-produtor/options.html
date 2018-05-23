@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MaxAmp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link href="../css/bootstrap-toggle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/manager.css">
+  
+
+</head>
+<body>
+        
+       
+    <nav class="navbar navbar-inverse navbar-dark p-0 shadow bg-dark fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-brand ml-auto" href="#">
+              <img class="logo float-left" src="..\images\logo.svg" width="30" height="30" alt="">
+              <h5 class="title text-light">MaxAmp</h5>
+            </div>
+
+            <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="../index.html"><i class="fas fa-sign-in-alt"></i> Sair</a>
+                  </li>
+            </ul>
+        </div>
+      </nav>
+
+
+      <div class="container-fluid bg-dark ">
+        <div class="row page bg-white" >
+          <div class="col-sm-2 bg-light sidebar">
+              <ul class="nav flex-column ">
+                  <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-home pr-2"></i>Inicio</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="panels.html"><i class="fas fa-sun pr-2"></i>Painéis Fotovoltáicos</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="battery.html"><i class="fas fa-battery-three-quarters pr-2"></i>Baterias</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#" onclick="alert('Em desenvolvimento')"><i class="fas fa-edit pr-2"></i>Regras</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="history.html"><i class="fas fa-history pr-2"></i>Histórico</span></a></li>
+                  <li class="nav-item"><a class="nav-link active" href="options.html"><i class="fas fa-cog pr-2"></i>Opções</span></a></li>
+              </ul>
+          </div>
+
+        <div class="col bg-white title-header">
+            <h4>Opções</h4><hr>
+
+            <div class="row">
+                <div class="col-sm-2 border-right">
+                    <p>Permitir gerador virtual</p>
+                </div>
+                <div class="col-sm-10">
+                    <input id="toggle-input" checked data-onstyle="success" data-offstyle="danger" data-on="Permitir" data-off="Não permitir"  data-toggle="toggle" type="checkbox">
+                </div>
+
+            </div>
+            <hr></ht><h4>Bateria</h4><hr>
+            <div class="row">
+                    <div class="col-sm-2 border-right">
+                        <p>Limite mínimo</p>
+                    </div>
+                    <div class="col-sm-2 text-center">
+                            <output  id="lim-min-text" class="badge badge-light">10%</output>
+                    </div>
+                    <div class="col-sm-6">
+                            <input type="range" name="range" min="1" max="100" value="10" class="form-control-range slider" onchange="$('#lim-min-text').text(value+'%');" oninput=" $('#lim-min-text').text(value+'%');">
+
+                    </div>
+                   
+    
+            </div>
+            <div class="row">
+                    <div class="col-sm-2 border-right">
+                        <p>Limite máximo</p>
+                    </div>
+                    <div class="col-sm-2 text-center">
+                            <output  id="lim-max-text" class="badge badge-light">80%</output>
+                    </div>
+                    <div class="col-sm-6">
+                            <input type="range" name="range" min="1" max="100" value="80" class="form-control-range slider"  onchange=" $('#lim-max-text').text(value+'%');" oninput=" $('#lim-max-text').text(value+'%');">
+                    </div>
+                    
+    
+            </div>
+        
+            
+        </div>
+        </div>
+      </div>
+
+
+
+<!-- Javascript -->
+
+<script>
+ document.addEventListener("DOMContentLoaded", function(event) {
+     
+   
+ });
+</script>
+    <script src="../script/raphael-2.1.4.min.js"></script>
+    <script src="../script/justgage.js"></script>
+    <script src="../script/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="../script/bootstrap.min.js" ></script>
+    <script src="../script/bootstrap-toggle.min.js"></script>
+</body>
+</html>

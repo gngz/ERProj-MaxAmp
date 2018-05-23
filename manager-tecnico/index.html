@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MaxAmp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link rel="stylesheet" href="../css/manager.css">
+  
+
+</head>
+<body>
+        
+       
+    <nav class="navbar navbar-inverse navbar-dark p-0 shadow bg-dark fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-brand ml-auto" href="#">
+              <img class="logo float-left" src="..\images\logo.svg" width="30" height="30" alt="">
+              <h5 class="title text-light">MaxAmp</h5>
+            </div>
+
+            <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="../index.html"><i class="fas fa-sign-in-alt"></i> Sair</a>
+                  </li>
+            </ul>
+        </div>
+      </nav>
+
+
+      <div class="container-fluid bg-dark ">
+        <div class="row page bg-white" >
+          <div class="col-sm-2 bg-light sidebar">
+              <ul class="nav flex-column ">
+                  <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-home pr-2"></i>Inicio</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="history.html"><i class="fas fa-history pr-2"></i>Histórico</a></li>
+              </ul>
+          </div>
+
+        <div class="col bg-white title-header"><h4>Bem-vindo(a) Técnico(a)</h4><hr>
+            <p class="text-center">Bem-vindo à página de administração do MaxAmp, aqui poderá configurar o sistema e visualizar dados acerca da rede.</p>
+            <p class="text-center">Utilize o menu à esquerda para navegar entre as opções possiveis.</p><br>
+            <hr><h5 class="text-center">Dados Instantâneos</h5><hr>
+            <div class="row justify-content-sm-center">
+                <div class="col-sm-3 te"></div>
+                <div class="col-sm-3">
+                        <div id="grede" class="gauge mx-auto" style="max-height: 200px; max-width: 200px;"></div>
+                </div>
+                <div class="col-sm-3">
+                        <div id="gbateria" class="gauge mx-auto" style="max-height: 200px; max-width: 200px;"></div>
+                </div>
+                <div class="col-sm-3 te"></div>
+            </div>
+            
+            
+        </div>
+        </div>
+      </div>
+
+
+
+<!-- Javascript -->
+
+<script>
+ document.addEventListener("DOMContentLoaded", function(event) {
+     
+     var consumo_casa  = getRandomInt(0,5000);
+     var prod_solar = getRandomInt(0,2000);
+     var energia_bateria = 0;
+
+    if(prod_solar>consumo_casa)
+    {
+        energia_bateria = getRandomInt(0,-5000)/5000 * (consumo_casa - prod_solar) ;
+    }
+    else
+    {
+        energia_bateria = getRandomInt(0,5000)/5000  *  (consumo_casa - prod_solar);
+    }
+
+     var energia_rede = prod_solar + (energia_bateria*-1)  - consumo_casa;
+
+
+
+    var gr = new JustGage({
+    id: "grede",
+    value: energia_rede,
+    min: -5000,
+    max: 5000,
+    title: "Rede",
+    label: "Consumo (W)",
+    relativeGaugeSize: true
+    });
+
+    var gb = new JustGage({
+    id: "gbateria",
+    value: energia_bateria,
+    min: -5000,
+    max: 5000,
+    title: "Bateria Virtual",
+    label: "Cons./Prod. (W)",
+    relativeGaugeSize: true
+    });
+
+
+
+      });
+</script>
+
+    <script src="../script/raphael-2.1.4.min.js"></script>
+    <script src="../script/justgage.js"></script>
+    <script src="../script/jquery-3.3.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="../script/bootstrap.min.js"></script>
+</body>
+</html>
